@@ -1,0 +1,15 @@
+changelog.txt export-ignore
+README.md export-ignore
+.gitattributes export-ignore
+.lando.yml export-ignore
+grumphp.yml export-ignore
+phpcs.xml.dist export-ignore
+psalm.xml export-ignore
+.env.example export-ignore
+tests export-ignore
+tools export-ignore
+docs export-ignore
+composer.lock -diff
+yarn.lock -diff
+*.map -diff
+rev-manifest.json -diff
