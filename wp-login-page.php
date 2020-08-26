@@ -9,8 +9,6 @@
  * Author URI:        https://beapi.fr
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       wp-login-page
- * Domain Path:
  */
 
 namespace BEAPI\WP_Login_Page;
@@ -18,28 +16,55 @@ namespace BEAPI\WP_Login_Page;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) || die();
 
-
 add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
+/**
+ * Enqueue the style for the login page.
+ *
+ * @author Nicolas JUEN
+ */
 function enqueue_asset() {
 	wp_enqueue_style( 'wp-login-page-css' );
 }
 
 add_action( 'wp', __NAMESPACE__ . '\\register_asset' );
+/**
+ * Register the style for the login page.
+ *
+ * @author Nicolas JUEN
+ */
 function register_asset() {
-	wp_register_style( 'wp-login-page-css', get_stylesheet_uri(), [ 'login' ], '1.0.0' );
+	wp_register_style( 'wp-login-page-css', get_login_stylesheet_uri(), [ 'login' ], '1.0.0' );
 }
 
-function get_stylesheet_uri() {
-	$file = get_theme_file_uri( '/dist/assets/login.css' );
+/**
+ * Returns the available file in order :
+ * - Theme
+ * - Platform
+ * - Default plugin file
+ *
+ * @return string
+ * @author Nicolas JUEN
+ */
+function get_login_stylesheet_uri() {
+	/**
+	 * First the child/parent file.
+	 */
+	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/assets/login.css' );
+	$file     = get_theme_file_uri( $filename );
 	if ( ! empty( $file ) ) {
 		return $file;
 	}
 
-	$platform_filename = apply_filters( 'wp-login-page-platform-css', 'wp-login-page/login.css' );
-
+	/**
+	 * The platform CSS if available into WP_CONTENT folder.
+	 */
+	$platform_filename = apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
 	if ( is_file( WP_CONTENT_DIR . '/' . $platform_filename ) ) {
 		return WP_CONTENT_URL . '/' . $platform_filename;
 	}
 
-	return WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css';
+	/**
+	 * Default behaviour returns the plugin login css file.
+	 */
+	return apply_filters( 'wp_login_page_default_css', WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css' );
 }
