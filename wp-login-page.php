@@ -26,7 +26,7 @@ function enqueue_asset() {
 	wp_enqueue_style( 'wp-login-page-css' );
 }
 
-add_action( 'wp', __NAMESPACE__ . '\\register_asset' );
+add_action( 'init', __NAMESPACE__ . '\\register_asset' );
 /**
  * Register the style for the login page.
  *
@@ -50,16 +50,16 @@ function get_login_stylesheet_uri() {
 	 * First the child/parent file.
 	 */
 	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/assets/login.css' );
-	$file     = get_theme_file_uri( $filename );
-	if ( ! empty( $file ) ) {
-		return $file;
+	$file     = get_theme_file_path( $filename );
+	if ( file_exists( $file ) ) {
+		return get_theme_file_uri( $filename );
 	}
 
 	/**
 	 * The platform CSS if available into WP_CONTENT folder.
 	 */
 	$platform_filename = apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
-	if ( is_file( WP_CONTENT_DIR . '/' . $platform_filename ) ) {
+	if ( file_exists( WP_CONTENT_DIR . '/' . $platform_filename ) ) {
 		return WP_CONTENT_URL . '/' . $platform_filename;
 	}
 
