@@ -16,7 +16,6 @@ namespace BEAPI\WP_Login_Page;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) || die();
 
-add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
 /**
  * Enqueue the style for the login page.
  *
@@ -33,7 +32,12 @@ add_action( 'init', __NAMESPACE__ . '\\register_asset' );
  * @author Nicolas JUEN
  */
 function register_asset() {
-	wp_register_style( 'wp-login-page-css', get_login_stylesheet_uri(), [ 'login' ], '1.0.0' );
+	$style = get_login_stylesheet_uri();
+	if ( empty( $style ) ) {
+		return;
+	}
+	add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
+	wp_register_style( 'wp-login-page-css', $style, [ 'login' ], '1.0.0' );
 }
 
 /**
@@ -64,7 +68,7 @@ function get_login_stylesheet_uri() {
 	}
 
 	/**
-	 * Default behaviour returns the plugin login css file.
+	 * Default behaviour no CSS.
 	 */
-	return apply_filters( 'wp_login_page_default_css', WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css' );
+	return '';
 }
