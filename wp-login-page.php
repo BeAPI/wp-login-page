@@ -60,6 +60,16 @@ function get_login_stylesheet_uri() {
 	}
 
 	/**
+	* Check the default theme if defined
+	*/
+	if ( defined( 'WP_DEFAULT_THEME' ) && ! empty( WP_DEFAULT_THEME ) ) {
+		$file = WP_CONTENT_DIR . '/themes/' . WP_DEFAULT_THEME . $filename;
+		if ( file_exists( $file ) ) {
+			return WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . $filename;
+		}
+	}
+
+	/**
 	 * The platform CSS if available into WP_CONTENT folder.
 	 */
 	$platform_filename = apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
