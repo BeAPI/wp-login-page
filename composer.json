@@ -25,8 +25,15 @@
     "wp-coding-standards/wpcs": "^2.2",
     "overtrue/phplint": "^2.0",
     "php-parallel-lint/php-parallel-lint": "^1.2",
-    "10up/wp_mock": "0.4.2"
+    "10up/wp_mock": "0.4.2",
+    "roots/wordpress": "*"
   },
+  "extra": {
+    "installer-paths": {
+      "wordpress": ["roots/wordpress"]
+    }
+  },
+
   "scripts": {
     "cs": "./vendor/bin/phpcs",
     "cbf": "./vendor/bin/phpcbf",
