@@ -74,7 +74,7 @@ function get_login_stylesheet_uri() {
 	 */
 	$platform_filename = apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
 	if ( file_exists( WP_CONTENT_DIR . '/' . $platform_filename ) ) {
-		return WP_CONTENT_URL . '/' . $platform_filename;
+		return WP_CONTENT_URL . $platform_filename;
 	}
 
 	/**
