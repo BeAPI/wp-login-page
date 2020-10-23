@@ -10,6 +10,7 @@
         <file name="wp-login-page.php"/>
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="tests" />
         </ignoreFiles>
     </projectFiles>
 
