@@ -50,21 +50,23 @@ function get_login_stylesheet_uri() {
 	 * First the child/parent file.
 	 */
 	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/assets/login.css' );
-	$file     = get_theme_file_path( $filename );
+	$file     = \get_theme_file_path( $filename );
+
 	if ( file_exists( $file ) ) {
-		return get_theme_file_uri( $filename );
+		return \get_theme_file_uri( $filename );
 	}
 
 	/**
 	 * The platform CSS if available into WP_CONTENT folder.
 	 */
-	$platform_filename = apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
+	$platform_filename = \apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
+
 	if ( file_exists( WP_CONTENT_DIR . '/' . $platform_filename ) ) {
-		return WP_CONTENT_URL . '/' . $platform_filename;
+		return \esc_url( WP_CONTENT_URL . $platform_filename );
 	}
 
 	/**
 	 * Default behaviour returns the plugin login css file.
 	 */
-	return apply_filters( 'wp_login_page_default_css', WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css' );
+	return esc_url( \apply_filters( 'wp_login_page_default_css', WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css' ) );
 }
