@@ -36,3 +36,7 @@ jobs:
 
     - name: Check psalm
       run: composer psalm
+
+    - name: Check unit test
+      run: composer test
+      
