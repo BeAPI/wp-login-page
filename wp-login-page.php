@@ -21,6 +21,8 @@ add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
  * Enqueue the style for the login page.
  *
  * @author Nicolas JUEN
+ *
+ * @return void
  */
 function enqueue_asset() {
 	wp_enqueue_style( 'wp-login-page-css' );
@@ -31,6 +33,8 @@ add_action( 'init', __NAMESPACE__ . '\\register_asset' );
  * Register the style for the login page.
  *
  * @author Nicolas JUEN
+ *
+ * @return void
  */
 function register_asset() {
 	wp_register_style( 'wp-login-page-css', get_login_stylesheet_uri(), [ 'login' ], '1.0.0' );
