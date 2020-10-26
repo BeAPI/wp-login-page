@@ -6,6 +6,7 @@ This mu-plugin allows you enqueue style on login page.
 The plugin will look for styles into :
 - dist/assets/login.css of the child theme
 - dist/assets/login.css of the parent theme
+- WP_DEFAULT_THEME/dist/assets/login.css
 - WP_CONTENT_DIR/wp-login-page/login.css
 
 ## Requirements
