@@ -2,7 +2,7 @@
   "name": "beapi/wp-login-page",
   "description": "Customize the login page with CSS/images",
   "minimum-stability": "stable",
-  "license": "GPL-2.0",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "BeAPI",
