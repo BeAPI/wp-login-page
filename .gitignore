@@ -12,4 +12,6 @@ composer.lock
 # Release
 /bin/release/
 
+# Tests
 /wordpress/
+.phpunit.result.cache

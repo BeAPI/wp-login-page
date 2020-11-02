@@ -16,7 +16,6 @@ namespace BEAPI\WP_Login_Page;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) || die();
 
-add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
 /**
  * Enqueue the style for the login page.
  *
@@ -37,7 +36,12 @@ add_action( 'init', __NAMESPACE__ . '\\register_asset' );
  * @return void
  */
 function register_asset() {
-	wp_register_style( 'wp-login-page-css', get_login_stylesheet_uri(), [ 'login' ], '1.0.0' );
+	$style = get_login_stylesheet_uri();
+	if ( empty( $style ) ) {
+		return;
+	}
+	add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
+	wp_register_style( 'wp-login-page-css', $style, [ 'login' ], '1.0.0' );
 }
 
 /**
@@ -61,6 +65,16 @@ function get_login_stylesheet_uri() {
 	}
 
 	/**
+	* Check the default theme if defined
+	*/
+	if ( defined( 'WP_DEFAULT_THEME' ) && ! empty( WP_DEFAULT_THEME ) ) {
+		$file = WP_CONTENT_DIR . '/themes/' . WP_DEFAULT_THEME . $filename;
+		if ( file_exists( $file ) ) {
+			return WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . $filename;
+		}
+	}
+
+	/**
 	 * The platform CSS if available into WP_CONTENT folder.
 	 */
 	$platform_filename = \apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
@@ -70,7 +84,7 @@ function get_login_stylesheet_uri() {
 	}
 
 	/**
-	 * Default behaviour returns the plugin login css file.
+	 * Default behaviour no CSS.
 	 */
-	return esc_url( \apply_filters( 'wp_login_page_default_css', WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css' ) );
+	return '';
 }

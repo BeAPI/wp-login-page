@@ -16,39 +16,26 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 
 	public function testDefaultBehaviour() {
 		WP_Mock::userFunction( 'get_theme_file_path', [
-			'args'            => [ Functions::type( 'string' ) ],
-			'return_in_order' => [
-				false,
-				__DIR__ . '/data/login.css',
-			],
+			'return' => false,
 		] );
 
 		$file = __DIR__ . '/data/login.css';
 		WP_Mock::userFunction( 'get_theme_file_uri', [
-			'args'            => [ Functions::type( 'string' ) ],
-			'return_in_order' => [
-				$file,
-			],
+			'return' =>  $file,
 		] );
 
-		$this->assertEquals( get_login_stylesheet_uri(), WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css' );
+		$this->assertEmpty( get_login_stylesheet_uri() );
 	}
 
 	public function testFilterTheme() {
 		$file = __DIR__ . '/data/login.css';
 
 		WP_Mock::userFunction( 'get_theme_file_path', [
-			'args'            => [ Functions::type( 'string' ) ],
-			'return_in_order' => [
-				__DIR__ . '/data/login.css',
-			],
+			'return' => __DIR__ . '/data/login.css',
 		] );
 
 		WP_Mock::userFunction( 'get_theme_file_uri', [
-			'args'            => [ Functions::type( 'string' ) ],
-			'return_in_order' => [
-				$file,
-			],
+			'return' => $file,
 		] );
 
 		WP_Mock::onFilter( 'wp_login_page_theme_css' )
@@ -58,14 +45,21 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 		$this->assertEquals( get_login_stylesheet_uri(), $file );
 	}
 
-	public function testFilterPlatform() {
-		$file = WP_CONTENT_DIR . '/wp-login-page/test.css';
+	public function testFilterThemeDefault() {
+		define( 'WP_DEFAULT_THEME', 'wp-login-page-default' );
+		$file = WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . '/dist/assets/login.css';
 
 		WP_Mock::userFunction( 'get_theme_file_path', [
+			'return' => false,
+		] );
+
+		$this->assertEquals( get_login_stylesheet_uri(), $file );
+	}
+
+	public function testFilterPlatform() {
+		WP_Mock::userFunction( 'get_theme_file_path', [
 			'args'            => [ Functions::type( 'string' ) ],
-			'return_in_order' => [
-				false,
-			],
+			'return' => false,
 		] );
 
 		WP_Mock::onFilter( 'wp_login_page_platform_css' )
