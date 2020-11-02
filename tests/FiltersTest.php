@@ -31,7 +31,7 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 			],
 		] );
 
-		$this->assertEquals( get_login_stylesheet_uri(), WPMU_PLUGIN_URL . '/wp-login-page/assets/login.css' );
+		$this->assertEmpty( get_login_stylesheet_uri() );
 	}
 
 	public function testFilterTheme() {
@@ -54,6 +54,20 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 		WP_Mock::onFilter( 'wp_login_page_theme_css' )
 		       ->with( '/dist/assets/login.css' )
 		       ->reply( '/data/login.css' );
+
+		$this->assertEquals( get_login_stylesheet_uri(), $file );
+	}
+
+	public function testFilterThemeDefault() {
+		define( 'WP_DEFAULT_THEME', 'wp-login-page-default' );
+		$file = WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . '/dist/assets/login.css';
+
+		WP_Mock::userFunction( 'get_theme_file_path', [
+			'args'            => [ Functions::type( 'string' ) ],
+			'return_in_order' => [
+				false,
+			],
+		] );
 
 		$this->assertEquals( get_login_stylesheet_uri(), $file );
 	}
