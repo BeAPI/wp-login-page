@@ -20,6 +20,8 @@ defined( 'ABSPATH' ) || die();
  * Enqueue the style for the login page.
  *
  * @author Nicolas JUEN
+ *
+ * @return void
  */
 function enqueue_asset() {
 	wp_enqueue_style( 'wp-login-page-css' );
@@ -30,6 +32,8 @@ add_action( 'init', __NAMESPACE__ . '\\register_asset' );
  * Register the style for the login page.
  *
  * @author Nicolas JUEN
+ *
+ * @return void
  */
 function register_asset() {
 	$style = get_login_stylesheet_uri();
@@ -54,9 +58,10 @@ function get_login_stylesheet_uri() {
 	 * First the child/parent file.
 	 */
 	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/assets/login.css' );
-	$file     = get_theme_file_path( $filename );
+	$file     = \get_theme_file_path( $filename );
+
 	if ( file_exists( $file ) ) {
-		return get_theme_file_uri( $filename );
+		return \get_theme_file_uri( $filename );
 	}
 
 	/**
@@ -72,9 +77,10 @@ function get_login_stylesheet_uri() {
 	/**
 	 * The platform CSS if available into WP_CONTENT folder.
 	 */
-	$platform_filename = apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
+	$platform_filename = \apply_filters( 'wp_login_page_platform_css', 'wp-login-page/login.css' );
+
 	if ( file_exists( WP_CONTENT_DIR . '/' . $platform_filename ) ) {
-		return WP_CONTENT_URL . $platform_filename;
+		return \esc_url( WP_CONTENT_URL . $platform_filename );
 	}
 
 	/**

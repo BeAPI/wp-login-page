@@ -1,0 +1,20 @@
+name: wp-login-page
+recipe: wordpress
+config:
+  webroot: ./wordpress/
+services:
+  appserver:
+    run_as_root:
+      - mkdir -p /app/wordpress/wp-content/mu-plugins/
+      - ln -s /app/wp-login-page.php /app/wordpress/wp-content/mu-plugins/wp-login-page.php
+events:
+  # Runs composer install and a custom php script after your app starts
+  post-start:
+  - appserver: cd $LANDO_MOUNT && composer install
+tooling:
+  setup:
+    service: appserver
+    description: 'Setup env'
+    cmd:
+      - wp config create --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=database --path=wordpress
+      - wp core install --url=wp-login-page.lndo.site --title="WP Login page test" --admin_user=admin --admin_password=admin --admin_email=admin@admin.fr --path=wordpress

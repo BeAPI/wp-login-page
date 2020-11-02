@@ -2,20 +2,20 @@
   "name": "beapi/wp-login-page",
   "description": "Customize the login page with CSS/images",
   "minimum-stability": "stable",
-  "license": "GPL-2.0",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "BeAPI",
       "email": "technique@beapi.fr"
     }
   ],
-  "type" : "wordpress-muplugin",
-  "require" : {
+  "type": "wordpress-muplugin",
+  "require": {
     "php": ">=5.6.0",
     "composer/installers": "~1.0"
   },
   "require-dev": {
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
     "phpcompatibility/php-compatibility": "^9.3",
     "phpro/grumphp-shim": "^0.18.0",
     "roave/security-advisories": "dev-master",
@@ -24,11 +24,20 @@
     "vimeo/psalm": "^3.11",
     "wp-coding-standards/wpcs": "^2.2",
     "overtrue/phplint": "^2.0",
-    "php-parallel-lint/php-parallel-lint": "^1.2"
+    "php-parallel-lint/php-parallel-lint": "^1.2",
+    "10up/wp_mock": "0.4.2",
+    "roots/wordpress": "*"
   },
+  "extra": {
+    "installer-paths": {
+      "wordpress": ["roots/wordpress"]
+    }
+  },
+
   "scripts": {
     "cs": "./vendor/bin/phpcs",
     "cbf": "./vendor/bin/phpcbf",
-    "psalm": "./vendor/bin/psalm"
+    "psalm": "./vendor/bin/psalm",
+    "tests": "./vendor/bin/phpunit"
   }
 }

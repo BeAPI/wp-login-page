@@ -7,6 +7,9 @@
 
 # Composer
 /vendor
+composer.lock
 
 # Release
 /bin/release/
+
+/wordpress/
