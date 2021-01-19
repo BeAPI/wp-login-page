@@ -12,6 +12,7 @@ tests export-ignore
 tools export-ignore
 docs export-ignore
 tests export-ignore
+.github export-ignore
 composer.lock -diff
 yarn.lock -diff
 *.map -diff
