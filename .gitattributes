@@ -14,8 +14,8 @@ tools export-ignore
 docs export-ignore
 tests export-ignore
 .github export-ignore
+composer.json export-ignore
 composer.lock -diff
-composer.json -diff
 yarn.lock -diff
 *.map -diff
 rev-manifest.json -diff
