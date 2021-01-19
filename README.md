@@ -56,3 +56,9 @@ body.login h1 a {
   background-size: 103px;
 }
 ```
+
+## Contribute
+Launch the local machine with lando:
+- `lando start`
+- `lando setup`
+- Open you browser at https://wp-login-page.lndo.site/wp-login.php
