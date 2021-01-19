@@ -1,6 +1,7 @@
 changelog.txt export-ignore
 README.md export-ignore
 .gitattributes export-ignore
+.gitignore export-ignore
 .lando.yml export-ignore
 grumphp.yml export-ignore
 phpcs.xml.dist export-ignore
@@ -14,6 +15,7 @@ docs export-ignore
 tests export-ignore
 .github export-ignore
 composer.lock -diff
+composer.json -diff
 yarn.lock -diff
 *.map -diff
 rev-manifest.json -diff
