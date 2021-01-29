@@ -22,6 +22,14 @@ composer require beapi/wp-login-page
 ### From files
 Just download the `wp-login-page.php` into your mu-plugins directory.
 
+## Changelog
+### 1.0.1
+* Fix platform URL construction
+* Add test on empty final file
+
+### 1.0.0
+* First release
+
 ## Filters
 
 ### wp_login_page_theme_css
