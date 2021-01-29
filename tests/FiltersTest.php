@@ -58,13 +58,24 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 
 	public function testFilterPlatform() {
 		WP_Mock::userFunction( 'get_theme_file_path', [
-			'args'            => [ Functions::type( 'string' ) ],
 			'return' => false,
 		] );
 
 		WP_Mock::onFilter( 'wp_login_page_platform_css' )
 		       ->with( 'wp-login-page/login.css' )
-		       ->reply( '/wp-login-page/test.css' );
+		       ->reply( 'wp-login-page/non-existing.css' );
+
+		$this->assertEmpty( get_login_stylesheet_uri() );
+	}
+
+	public function testFilterPlatformEmpty() {
+		WP_Mock::userFunction( 'get_theme_file_path', [
+			'return' => false,
+		] );
+
+		WP_Mock::onFilter( 'wp_login_page_platform_css' )
+		       ->with( 'wp-login-page/login.css' )
+		       ->reply( 'wp-login-page/test.css' );
 
 		$this->assertEquals( get_login_stylesheet_uri(), WP_CONTENT_URL . '/wp-login-page/test.css' );
 	}
