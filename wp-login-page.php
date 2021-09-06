@@ -3,7 +3,7 @@
  * Plugin Name:       WP Login page
  * Plugin URI:        https://github.com/BeAPI/wp-login-page
  * Description:       Customize the login page with CSS/images
- * Version:           1.0.1
+ * Version:           2.0.0
  * Requires PHP:      5.6
  * Author:            Be API
  * Author URI:        https://beapi.fr
@@ -41,7 +41,7 @@ function register_asset() {
 		return;
 	}
 	add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
-	wp_register_style( 'wp-login-page-css', $style, [ 'login' ], '1.0.0' );
+	wp_register_style( 'wp-login-page-css', $style, [ 'login' ], '2.0.0' );
 }
 
 /**
@@ -57,7 +57,7 @@ function get_login_stylesheet_uri() {
 	/**
 	 * First the child/parent file.
 	 */
-	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/assets/login.css' );
+	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/login.css' );
 	$file     = \get_theme_file_path( $filename );
 
 	if ( file_exists( $file ) ) {

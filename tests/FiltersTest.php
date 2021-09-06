@@ -6,6 +6,12 @@ use WP_Mock\Functions;
 use function BEAPI\WP_Login_Page\get_login_stylesheet_uri;
 
 class FiltersTest extends \WP_Mock\Tools\TestCase {
+	/**
+	 * Since we have CONSTANTS, run all tests in separate processes
+	 */
+	protected $preserveGlobalState = FALSE;
+	protected $runTestInSeparateProcess = TRUE;
+
 	public function setUp(): void {
 		WP_Mock::setUp();
 	}
@@ -39,21 +45,21 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 		] );
 
 		WP_Mock::onFilter( 'wp_login_page_theme_css' )
-		       ->with( '/dist/assets/login.css' )
+		       ->with( '/dist/login.css' )
 		       ->reply( '/data/login.css' );
 
-		$this->assertEquals( get_login_stylesheet_uri(), $file );
+		$this->assertEquals( $file, get_login_stylesheet_uri() );
 	}
 
 	public function testFilterThemeDefault() {
 		define( 'WP_DEFAULT_THEME', 'wp-login-page-default' );
-		$file = WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . '/dist/assets/login.css';
+		$file = WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . '/dist/login.css';
 
 		WP_Mock::userFunction( 'get_theme_file_path', [
 			'return' => false,
 		] );
 
-		$this->assertEquals( get_login_stylesheet_uri(), $file );
+		$this->assertEquals( $file, get_login_stylesheet_uri() );
 	}
 
 	public function testFilterPlatform() {
@@ -77,6 +83,6 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 		       ->with( 'wp-login-page/login.css' )
 		       ->reply( 'wp-login-page/test.css' );
 
-		$this->assertEquals( get_login_stylesheet_uri(), WP_CONTENT_URL . '/wp-login-page/test.css' );
+		$this->assertEquals( WP_CONTENT_URL . '/wp-login-page/test.css', get_login_stylesheet_uri() );
 	}
 }
