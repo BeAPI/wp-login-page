@@ -37,8 +37,8 @@ Allows you to change the theme filepath.
 If you need to change the filepath to `theme/my_theme/assets/my-custom-login.css`
 ```php
 <?php
-add_filter( 'wp_login_page_theme_css', function() {
-    return 'assets/my-custom-login.css';
+add_filter( 'wp_login_page_theme_css', function( $folders ) {
+    return array_merge( $folders, [ 'assets/my-custom-login.css' ] );
 });
 ```
 
