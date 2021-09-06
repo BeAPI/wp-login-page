@@ -42,7 +42,7 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 		       ->with( '/dist/login.css' )
 		       ->reply( '/data/login.css' );
 
-		$this->assertEquals( get_login_stylesheet_uri(), $file );
+		$this->assertEquals( $file, get_login_stylesheet_uri() );
 	}
 
 	public function testFilterThemeDefault() {
@@ -53,7 +53,7 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 			'return' => false,
 		] );
 
-		$this->assertEquals( get_login_stylesheet_uri(), $file );
+		$this->assertEquals( $file, get_login_stylesheet_uri() );
 	}
 
 	public function testFilterPlatform() {
@@ -77,6 +77,6 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 		       ->with( 'wp-login-page/login.css' )
 		       ->reply( 'wp-login-page/test.css' );
 
-		$this->assertEquals( get_login_stylesheet_uri(), WP_CONTENT_URL . '/wp-login-page/test.css' );
+		$this->assertEquals( WP_CONTENT_URL . '/wp-login-page/test.css', get_login_stylesheet_uri() );
 	}
 }
