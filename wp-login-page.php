@@ -70,8 +70,14 @@ function get_login_stylesheet_uri() {
 	* Check the default theme if defined
 	*/
 	if ( defined( 'WP_DEFAULT_THEME' ) && ! empty( WP_DEFAULT_THEME ) ) {
+		/**
+		 * @psalm-suppress PossiblyUndefinedVariable $filename
+		 **/
 		$file = WP_CONTENT_DIR . '/themes/' . WP_DEFAULT_THEME . $filename;
 		if ( file_exists( $file ) ) {
+			/**
+			 * @psalm-suppress PossiblyUndefinedVariable $filename
+			 **/
 			return WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . $filename;
 		}
 	}
