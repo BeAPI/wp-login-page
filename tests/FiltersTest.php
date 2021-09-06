@@ -39,7 +39,7 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 		] );
 
 		WP_Mock::onFilter( 'wp_login_page_theme_css' )
-		       ->with( '/dist/assets/login.css' )
+		       ->with( '/dist/login.css' )
 		       ->reply( '/data/login.css' );
 
 		$this->assertEquals( get_login_stylesheet_uri(), $file );
@@ -47,7 +47,7 @@ class FiltersTest extends \WP_Mock\Tools\TestCase {
 
 	public function testFilterThemeDefault() {
 		define( 'WP_DEFAULT_THEME', 'wp-login-page-default' );
-		$file = WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . '/dist/assets/login.css';
+		$file = WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . '/dist/login.css';
 
 		WP_Mock::userFunction( 'get_theme_file_path', [
 			'return' => false,

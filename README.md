@@ -23,6 +23,10 @@ composer require beapi/wp-login-page
 Just download the `wp-login-page.php` into your mu-plugins directory.
 
 ## Changelog
+
+### 2.0
+* BREAKING CHANGES : Change path to default theme file path `dist/assets/login.css` to `dist/login.css`
+
 ### 1.0.1
 * Fix platform URL construction
 * Add test on empty final file
@@ -37,8 +41,8 @@ Allows you to change the theme filepath.
 If you need to change the filepath to `theme/my_theme/assets/my-custom-login.css`
 ```php
 <?php
-add_filter( 'wp_login_page_theme_css', function( $folders ) {
-    return array_merge( $folders, [ 'assets/my-custom-login.css' ] );
+add_filter( 'wp_login_page_theme_css', function() {
+    return 'assets/my-custom-login.css' );
 });
 ```
 

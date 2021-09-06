@@ -3,7 +3,7 @@
  * Plugin Name:       WP Login page
  * Plugin URI:        https://github.com/BeAPI/wp-login-page
  * Description:       Customize the login page with CSS/images
- * Version:           1.0.2
+ * Version:           2.0.0
  * Requires PHP:      5.6
  * Author:            Be API
  * Author URI:        https://beapi.fr
@@ -41,7 +41,7 @@ function register_asset() {
 		return;
 	}
 	add_action( 'login_head', __NAMESPACE__ . '\\enqueue_asset' );
-	wp_register_style( 'wp-login-page-css', $style, [ 'login' ], '1.0.0' );
+	wp_register_style( 'wp-login-page-css', $style, [ 'login' ], '2.0.0' );
 }
 
 /**
@@ -57,27 +57,19 @@ function get_login_stylesheet_uri() {
 	/**
 	 * First the child/parent file.
 	 */
-	$filenames = apply_filters( 'wp_login_page_theme_css', [ '/dist/assets/login.css', '/dist/login.css' ] );
-	foreach ( $filenames as $filename ) {
-		$file = \get_theme_file_path( $filename );
+	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/login.css' );
+	$file = \get_theme_file_path( $filename );
 
-		if ( file_exists( $file ) ) {
-			return \get_theme_file_uri( $filename );
-		}
+	if ( file_exists( $file ) ) {
+		return \get_theme_file_uri( $filename );
 	}
 
 	/**
 	* Check the default theme if defined
 	*/
 	if ( defined( 'WP_DEFAULT_THEME' ) && ! empty( WP_DEFAULT_THEME ) ) {
-		/**
-		 * @psalm-suppress PossiblyUndefinedVariable $filename
-		 **/
 		$file = WP_CONTENT_DIR . '/themes/' . WP_DEFAULT_THEME . $filename;
 		if ( file_exists( $file ) ) {
-			/**
-			 * @psalm-suppress PossiblyUndefinedVariable $filename
-			 **/
 			return WP_CONTENT_URL . '/themes/' . WP_DEFAULT_THEME . $filename;
 		}
 	}
