@@ -6,6 +6,12 @@ use WP_Mock\Functions;
 use function BEAPI\WP_Login_Page\get_login_stylesheet_uri;
 
 class FiltersTest extends \WP_Mock\Tools\TestCase {
+	/**
+	 * Since we have CONSTANTS, run all tests in separate processes
+	 */
+	protected $preserveGlobalState = FALSE;
+	protected $runTestInSeparateProcess = TRUE;
+
 	public function setUp(): void {
 		WP_Mock::setUp();
 	}
