@@ -58,7 +58,7 @@ function get_login_stylesheet_uri() {
 	 * First the child/parent file.
 	 */
 	$filename = apply_filters( 'wp_login_page_theme_css', '/dist/login.css' );
-	$file = \get_theme_file_path( $filename );
+	$file     = \get_theme_file_path( $filename );
 
 	if ( file_exists( $file ) ) {
 		return \get_theme_file_uri( $filename );
