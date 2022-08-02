@@ -24,6 +24,10 @@ Just download the `wp-login-page.php` into your mu-plugins directory.
 
 ## Changelog
 
+### 2.0.1
+* Update dev dependencies
+* Update the composer/installers constraint
+
 ### 2.0
 * BREAKING CHANGES : Change path to default theme file path `dist/assets/login.css` to `dist/login.css`
 
