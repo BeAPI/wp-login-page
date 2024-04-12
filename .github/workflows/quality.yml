@@ -52,7 +52,7 @@ jobs:
         run: npm ci
 
       - name: Launch environment
-        run: WP_ENV_PHP_VERSION=${{ matrix.php_version }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.core }} npm run env:start-ci
+        run: WP_ENV_PHP_VERSION=${{ matrix.php-version }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.wordpress-version }} npm run env:start-ci
 
       - name: Updates dependencies for tests
         run: npm run env run tests-wordpress composer update -- -W --working-dir=/var/www/html/wp-content/plugins/wp-login-page/
