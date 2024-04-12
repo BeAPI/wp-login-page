@@ -3,7 +3,7 @@
  * Plugin Name:       WP Login page
  * Plugin URI:        https://github.com/BeAPI/wp-login-page
  * Description:       Customize the login page with CSS/images
- * Version:           2.0.1
+ * Version:           2.0.2
  * Requires PHP:      5.6
  * Author:            Be API
  * Author URI:        https://beapi.fr
