@@ -78,6 +78,6 @@ body.login h1 a {
 
 ## Contribute
 Launch the local machine with lando:
-- `lando start`
-- `lando setup`
-- Open you browser at https://wp-login-page.lndo.site/wp-login.php
+- `npm install`
+- `npm run env:start`
+- Open you browser at http://localhost:8888

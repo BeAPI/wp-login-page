@@ -13,5 +13,8 @@ composer.lock
 /bin/release/
 
 # Tests
-/wordpress/
+/coverage/
 .phpunit.result.cache
+
+# Node
+node_modules

@@ -1,0 +1,13 @@
+{
+  "phpVersion": "8.0",
+  "lifecycleScripts": {
+    "afterStart": "./tests/bin/initialize.sh"
+  },
+  "plugins": [
+    "."
+  ],
+  "mappings": {
+    "wp-cli.yml": "./tests/bin/wp-cli.yml",
+    "tests/themes/data/wp-login-page-default/dist/login.css" : "/var/www/html/wp-content/themes/twentytwentyfour/dist/login.php"
+  }
+}
