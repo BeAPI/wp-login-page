@@ -24,6 +24,9 @@ Just download the `wp-login-page.php` into your mu-plugins directory.
 
 ## Changelog
 
+### 2.0.2
+* Use login_init hook instead of init (if wp-cerber is enabled, init hook seems to not be fired)
+
 ### 2.0.1
 * Update dev dependencies
 * Update the composer/installers constraint
