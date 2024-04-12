@@ -3,8 +3,8 @@
 // First we need to load the composer autoloader so we can use WP Mock
 require_once __DIR__ . '/../vendor/autoload.php';
 
-define( 'WPMU_PLUGIN_URL', 'https://test.test/wp-content/mu-plugins' );
-define( 'WP_CONTENT_URL', 'https://test.test/wp-content' );
+define( 'WPMU_PLUGIN_URL', 'http://localhost:8889/wp-content/mu-plugins' );
+define( 'WP_CONTENT_URL', 'https://localhost:8889/wp-content' );
 define( 'WP_CONTENT_DIR', __DIR__.'/data' );
 
 // Now call the bootstrap method of WP Mock

@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="./tests/bootstrap.php" executionOrder="depends,defects" forceCoversAnnotation="false" beStrictAboutCoversAnnotation="false" beStrictAboutOutputDuringTests="true" beStrictAboutTodoAnnotatedTests="true" colors="true" verbose="true">
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+        bootstrap="./tests/bootstrap.php"
+        executionOrder="depends,defects"
+        forceCoversAnnotation="false"
+        beStrictAboutCoversAnnotation="false"
+        beStrictAboutOutputDuringTests="true"
+        beStrictAboutTodoAnnotatedTests="true"
+        colors="true"
+        verbose="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        convertDeprecationsToExceptions="true"
+>
   <coverage processUncoveredFiles="true">
     <include>
       <file>wp-login-page.php</file>
     </include>
   </coverage>
+  <php>
+    <env name="WORDPRESS_TABLE_PREFIX" value="wptests_" />
+  </php>
+
   <testsuites>
     <testsuite name="Wp login page test suite">
       <directory suffix="Test.php">tests</directory>

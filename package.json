@@ -1,0 +1,41 @@
+{
+  "name": "wp-login-page",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "plugin-zip": "wp-scripts plugin-zip",
+
+    "env": "wp-env",
+    "env:start": "wp-env start --xdebug=coverage",
+    "env:start-ci": "wp-env start",
+    "env:stop": "wp-env stop",
+    "env:reset": "wp-env clean",
+    "env:destroy": "wp-env destroy",
+    "env:cli": "wp-env run cli",
+    "env:tests-cli": "wp-env run tests-cli",
+
+    "pretest:php" : "npm run env run tests-wordpress composer update -- -W --working-dir=/var/www/html/wp-content/plugins/wp-login-page/",
+    "test:php": "wp-env run tests-wordpress /var/www/html/wp-content/plugins/wp-login-page/vendor/bin/phpunit -c /var/www/html/wp-content/plugins/wp-login-page/phpunit.xml -- --coverage-html=/var/www/html/wp-content/plugins/wp-login-page/coverage/"
+  },
+  "files": [
+    "wp-login-page.php"
+  ],
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
+  "author": "beapi",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@wordpress/env": "^9.6.0",
+    "@wordpress/scripts": "^27.1.0"
+  }
+}

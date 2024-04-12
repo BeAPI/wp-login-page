@@ -1,42 +1,64 @@
 name: Quality
 
-on: [pull_request]
-
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'wp-login-page.php'
+      - 'tests/**'
+      - 'composer.json'
+      - '.github/workflows/*.yml'
 jobs:
-  run:    
-    runs-on: ${{ matrix.operating-system }}
+  run:
+    runs-on: 'ubuntu-latest'
     strategy:
       matrix:
-        operating-system: [ ubuntu-latest ]
-        php-versions: [ '7.4' ]
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+        wordpress-version: [ '6.3', '6.4', '6.5' ]
+        php-version: [ '8.0', '8.1', '8.2', '8.3' ]
+    name: PHP ${{ matrix.php-version }}  Test on ${{ matrix.operating-system }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: mbstring, intl #optional, setup extensions
-        ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
-        coverage: xdebug #optional, setup coverage driver
-        tools: psalm, phpcbf, phpcs
-    - name: Check PHP Version
-      run: php -v
-    
-    - name: Add dependencies
-      run: composer install 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          ini-file: development
+          coverage: none
 
-    - name: Check composer
-      run: composer validate
+      - name: Add dependencies
+        run: composer install -o
 
-    - name: Check cs
-      run: composer cs
+      - name: Check composer
+        run: composer validate
 
-    - name: Check psalm
-      run: composer psalm
+      - name: Check cs
+        run: composer cs
 
-    - name: Check unit test
-      run: composer test
-      
+      - name: Check psalm
+        run: composer psalm
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.11.*'
+          cache: npm
+
+      - name: Check unit test
+        run: composer test
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Launch environment
+        run: WP_ENV_PHP_VERSION=${{ matrix.php_version }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.core }} npm run env:start-ci
+
+      - name: Updates dependencies for tests
+        run: npm run env run tests-wordpress composer update -- -W --working-dir=/var/www/html/wp-content/plugins/wp-login-page/
+
+      - name: Update Yoast dependencies
+        run: npm run env run tests-wordpress composer update -- --dev yoast/phpunit-polyfills -W --working-dir=/var/www/html/wp-content/plugins/wp-login-page/
+
+      - name: Test PHP
+        run: npm run test:php
