@@ -27,7 +27,7 @@ function enqueue_asset() {
 	wp_enqueue_style( 'wp-login-page-css' );
 }
 
-add_action( 'init', __NAMESPACE__ . '\\register_asset' );
+add_action( 'login_init', __NAMESPACE__ . '\\register_asset' );
 /**
  * Register the style for the login page.
  *
