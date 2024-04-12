@@ -15,7 +15,7 @@ jobs:
       matrix:
         wordpress-version: [ '6.3', '6.4', '6.5' ]
         php-version: [ '8.0', '8.1', '8.2', '8.3' ]
-    name: PHP ${{ matrix.php-version }}  Test on ${{ matrix.operating-system }}
+    name: PHP ${{ matrix.php-version }}  Test on ${{ matrix.wordpress-version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v1
