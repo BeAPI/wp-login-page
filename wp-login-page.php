@@ -88,3 +88,14 @@ function get_login_stylesheet_uri() {
 	 */
 	return '';
 }
+
+/**
+ * Login header url
+ *
+ * @return string
+ */
+function login_headerurl(): string {
+	return home_url();
+}
+
+add_filter( 'login_headerurl', __NAMESPACE__ . '\\login_headerurl' );
